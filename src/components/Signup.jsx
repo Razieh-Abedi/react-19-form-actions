@@ -17,37 +17,34 @@ export default function Signup() {
     const firstName = formData.get("first-name");
     const lastName = formData.get("last-name");
     const terms = formData.get("terms");
-    console.log(data);
+
     let errors = [];
     if (!isEqualToOtherValue(password, confirmPassword)) {
       errors.push("Passwords do not match!");
-      return;
     }
     if (!isNotEmpty(email) || !isEmail(email)) {
       errors.push("Please enter a valid email address!");
-      return;
     }
     if (!isNotEmpty(password) || !hasMinLength(password, 6)) {
       errors.push("Password should be at least 6 characters!");
-      return;
     }
     if (!isNotEmpty(firstName) || !isNotEmpty(lastName)) {
       errors.push("Please enter first and last name.");
-      return;
     }
     if (!isNotEmpty(role)) {
       errors.push("Please select a role");
-      return;
     }
     if (!isNotEmpty(terms)) {
       errors.push("You must agree to terms and condition.");
-      return;
     }
     if (!isNotEmpty(acquisitionChannel)) {
       errors.push("Please select at least one acquisition channel.");
-      return;
     }
-    ///send data to BE
+    if (errors.length > 0) {
+      console.log(errors);
+      return { errors };
+    }
+    return { errors: null };
   }
 
   return (
